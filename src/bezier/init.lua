@@ -2,7 +2,7 @@
 
 local bezier = {}
 
-function bezier:CubicBezierCurve(object, goal, offset1, offset2)
+function bezier:CubicBezierCurve(object, goal, goalOrientation, offset1, offset2)
     local p0 = object.CFrame
     local p1 = object.CFrame * offset1
     local p2 = goal * offset2
@@ -21,7 +21,7 @@ function bezier:CubicBezierCurve(object, goal, offset1, offset2)
         D = D:lerp(B, i);
         E = E:lerp(C, i);
         
-        object.CFrame = object.CFrame:lerp(E, i)
+        object.CFrame = object.CFrame:lerp(E * goalOrientation, i)
 
         task.wait()
     end
