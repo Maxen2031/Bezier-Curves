@@ -2,9 +2,9 @@
 
 local bezier = {}
 
-function bezier:CubicBezierCurve(camera, goal)
-    local p0 = camera.CFrame
-    local p1 = camera.CFrame * CFrame.new(10, 0, 0)
+function bezier:CubicBezierCurve(object, goal)
+    local p0 = object.CFrame
+    local p1 = object.CFrame * CFrame.new(10, 0, 0)
     local p2 = goal.CFrame * CFrame.new(10, 0, 0)
     local p3 = goal
 
@@ -13,10 +13,15 @@ function bezier:CubicBezierCurve(camera, goal)
     local C = p2
     local D = A
     local E = B
-    local P = D
-    
-    for i = 1, 100 do
+
+    for i = 0, 1, 0.01 do
+        A = A:lerp(p1, i);
+        B = B:lerp(p2, i);
+        C = C:lerp(p3, i);
+        D = D:lerp(B, i);
+        E = E:lerp(C, i);
         
+        object.CFrame = object.CFrame:lerp(E, i)
     end
 end
 
